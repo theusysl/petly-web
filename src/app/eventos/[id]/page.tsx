@@ -23,7 +23,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
          : <div className="absolute inset-0 bg-linear-to-br from-petly-mint via-white to-petly-peach" />
         }<div className="absolute inset-0 bg-linear-to-t from-petly-ink/45 via-transparent to-transparent" />
         <div className="absolute bottom-6 left-6 rounded-2xl bg-white/75 px-5 py-4 backdrop-blur-sm">
-        <span className="block text-3xl font-semibold text-petly-accent">
+        <span className="block text-3xl text-petly-accent">
           {date.toLocaleDateString("pt-BR", { day: "2-digit" })}</span>
         <span className="text-xs font-bold uppercase tracking-widest text-petly-muted">
           {date.toLocaleDateString("pt-BR", { month: "long" })}</span>
@@ -33,7 +33,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
         <div className="flex flex-col justify-center p-7 md:p-12">
           <span className="text-[11px] font-bold uppercase tracking-[.18em] text-petly-accent">
           Evento Petly</span>
-        <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-tighter md:text-5xl">
+        <h1 className="mt-4 text-4xl leading-tight tracking-tighter md:text-5xl">
           {event.title}</h1>
         <p className="mt-6 text-lg leading-7 text-petly-muted ">
           {event.description}</p>
@@ -69,7 +69,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
           </div>
           }</div>
 
-          <Link className="mt-9 inline-flex w-fit items-center gap-2 rounded-full bg-petly-ink px-5 py-3 text-sm font-semibold text-white" href="/eventos">
+          <Link className="mt-9 inline-flex w-fit items-center gap-2 rounded-full bg-petly-ink px-5 py-2 text-sm font-semibold text-white" href="/eventos">
           Ver outros eventos <Icon name="arrow" size={17} />
           </Link>
         </div>

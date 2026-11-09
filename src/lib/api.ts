@@ -3,7 +3,7 @@ export const API_BASE_URL = configuredUrl.replace(/\/+$/, "").replace(/\/api$/, 
 
 export class ApiError extends Error { constructor(public status: number, message: string) { super(message); } }
 
-export async function apiRequest<T>(path: string, options: { method?: "GET" | "POST" | "DELETE"; body?: unknown; signal?: AbortSignal; token?: string | null } = {}): Promise<T> {
+export async function apiRequest<T>(path: string, options: { method?: "GET" | "POST" | "PATCH" | "DELETE"; body?: unknown; signal?: AbortSignal; token?: string | null } = {}): Promise<T> {
   const headers = new Headers();
   if (options.body) headers.set("Content-Type", "application/json");
   if (options.token) headers.set("Authorization", `Bearer ${options.token}`);

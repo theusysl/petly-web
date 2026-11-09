@@ -1,9 +1,7 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { Brand } from "@/components/Brand";
 import { Icon } from "@/components/Icon";
-import { Navbar } from "@/components/Navbar";
 import { PetCard, type Pet } from "@/components/PetCard";
 import { EventCard } from "@/components/EventCard";
 import { petService } from "@/services/petService";
@@ -26,24 +24,26 @@ export default function Home() {
   useEffect(() => { const controller = new AbortController(); eventService.list(controller.signal).then((data) => setEvents(data.slice(0, 3))).catch((error) => { if (error?.name !== "AbortError") setEventsError(error instanceof Error ? error.message : "Não foi possível carregar os eventos."); }).finally(() => setEventsLoading(false)); return () => controller.abort(); }, []);
   const visiblePets = filter === "Todos" ? pets.filter((pet) => pet.status !== "LOST") : pets.filter((pet) => pet.status !== "LOST" && pet.kind.toLowerCase().includes(filter === "Cão" ? "cach" : "gat"));
   const lostPets = pets.filter((pet) => pet.status === "LOST");
+  
   return (
   <main className="min-h-screen bg-petly-cream font-sans text-petly-ink">
     <section className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-14 md:grid-cols-2 md:px-8 md:py-20">
       <div>
-      <div className="text-[11px] font-bold uppercase tracking-[.18em] text-[#286851]">
-      <span className="mr-2 inline-block h-2 w-2 rounded-full bg-[#e89d76]"/>
-    Uma rede que cuida</div>
+      <div className="text-[11px] font-bold uppercase tracking-[.18em] text-petly-accent">
+        <span className="mr-2 inline-block h-2 w-2 rounded-full bg-[#e89d76]"/>
+        Uma rede que cuida
+      </div>
     <h1 className="mt-5 max-w-2xl text-6xl font-normal leading-[.98] tracking-[-.06em] md:text-8xl">
       Encontre um novo <em className="font-serif font-medium italic text-[#4e9877]">
       começo.</em>
     </h1>
-    <p className="mt-7 max-w-lg text-lg leading-7 text-[#6f837d]">
+    <p className="mt-7 max-w-lg text-lg leading-7 text-petly-muted">
       O Petly aproxima pessoas e animais que precisam se encontrar. Adote com responsabilidade ou ajude a trazer um pet de volta para casa.</p>
     <div className="mt-8 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
       <Link className={button} href="#adotar">
       Encontrar um pet <Icon name="arrow" />
     </Link>
-    <a className="flex items-center gap-2 text-sm font-semibold text-[#286851]" href="#perdidos">
+    <a className="flex items-center gap-2 text-sm font-semibold text-petly-accent" href="#perdidos">
       Procuro um pet perdido <Icon name="arrow" />
     </a>
     </div>
@@ -58,7 +58,7 @@ export default function Home() {
     <div className="absolute bottom-5 left-0 h-28 w-28 rounded-full bg-[#f4dfcf]"/>
     <div className="absolute inset-8 rounded-[48%] bg-cover bg-center shadow-lg md:inset-12" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1000&q=85)" }}/>
     <div className="absolute left-0 top-24 flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-xl">
-      <span className="grid h-9 w-9 place-items-center rounded-xl bg-[#dfeee4] text-[#286851]">
+      <span className="grid h-9 w-9 place-items-center rounded-xl bg-[#dfeee4] text-petly-accent">
       <Icon name="paw" size={17}/>
     </span>
     <span>
@@ -75,7 +75,7 @@ export default function Home() {
     </section>
     <section id="buscar" className="mx-auto mb-24 flex max-w-6xl flex-col gap-5 rounded-2xl border border-[#e3e9e3] bg-white p-5 shadow-lg shadow-[#2d5c48]/5 md:flex-row md:items-center">
       <div className="flex items-center gap-3 md:min-w-60">
-      <span className="grid h-10 w-10 place-items-center rounded-xl bg-[#dfeee4] text-[#286851]">
+      <span className="grid h-10 w-10 place-items-center rounded-xl bg-[#dfeee4] text-petly-accent">
       <Icon name="search"/>
     </span>
     <span>
@@ -92,20 +92,20 @@ export default function Home() {
       <Icon name="arrow" size={18}/>
     </button>
     </div>
-    <a className="flex items-center gap-2 whitespace-nowrap text-sm font-semibold text-[#286851]" href="#mapa">
+    <a className="flex items-center gap-2 whitespace-nowrap text-sm font-semibold text-petly-accent" href="#mapa">
       <Icon name="map" size={18}/>
     Ver no mapa</a>
     </section>
     <section id="adotar" className="mx-auto max-w-7xl px-5 pb-28 md:px-8">
       <div className="mb-8 flex flex-col justify-between gap-5 md:flex-row md:items-end">
       <div>
-      <span className="text-[11px] font-bold uppercase tracking-[.18em] text-[#286851]">
+      <span className="text-[11px] font-bold uppercase tracking-[.18em] text-petly-accent">
       Para adotar</span>
     <h2 className="mt-3 text-4xl font-normal leading-tight tracking-[-.05em] md:text-5xl">
       Talvez o seu melhor amigo<br/>
     esteja aqui.</h2>
     </div>
-    <Link className="flex w-fit items-center gap-2 rounded-full border border-[#e3e9e3] px-4 py-3 text-sm font-semibold text-[#286851]" href="/pets">
+    <Link className="flex w-fit items-center gap-2 rounded-full border border-[#e3e9e3] px-4 py-3 text-sm font-semibold text-petly-accent" href="/pets">
       Ver todos os pets <Icon name="arrow" size={17}/>
     </Link>
     </div>
@@ -127,17 +127,18 @@ export default function Home() {
     </section>
     <section id="perdidos" className="mx-auto max-w-7xl px-5 pb-28 md:px-8">
       <div className="mb-8 flex flex-col justify-between gap-5 md:flex-row md:items-end">
-        <div><span className="text-[11px] font-bold uppercase tracking-[.18em] text-[#286851]">Ajude a encontrar</span><h2 className="mt-3 text-4xl font-normal tracking-[-.05em] md:text-5xl">Pets perdidos precisam <em className="font-serif text-petly-sage">voltar para casa.</em></h2><p className="mt-4 max-w-xl text-[#6f837d]">Compartilhe uma história, fique atento à sua região e ajude uma família a reencontrar seu melhor amigo.</p></div>
-        <Link className="flex w-fit items-center gap-2 rounded-full border border-[#e3e9e3] px-4 py-3 text-sm font-semibold text-[#286851]" href="/pets?status=lost">Ver todos os perdidos <Icon name="arrow" size={17} /></Link>
+        <div><span className="text-[11px] font-bold uppercase tracking-[.18em] text-petly-accent">Ajude a encontrar</span><h2 className="mt-3 text-4xl font-normal tracking-[-.05em] md:text-5xl">Pets perdidos precisam <em className="font-serif text-petly-sage">voltar para casa.</em></h2><p className="mt-4 max-w-xl text-[#6f837d]">Compartilhe uma história, fique atento à sua região e ajude uma família a reencontrar seu melhor amigo.</p></div>
+        <Link className="flex w-fit items-center gap-2 rounded-full border border-[#e3e9e3] px-4 py-3 text-sm font-semibold text-petly-accent" href="/pets?status=lost">Ver todos os perdidos <Icon name="arrow" size={17} /></Link>
       </div>
       {petsLoading && <p className="rounded-xl border border-petly-line bg-white p-8 text-center text-sm text-petly-muted">Carregando pets perdidos...</p>}
       {!petsLoading && lostPets.length === 0 && <p className="rounded-xl border border-petly-line bg-white p-8 text-center text-sm text-petly-muted">Nenhum pet perdido publicado no momento.</p>}
       {!petsLoading && lostPets.length > 0 && <div className="grid gap-5 md:grid-cols-3">{lostPets.slice(0, 3).map((pet) => <PetCard key={pet.id} pet={pet} />)}</div>}
     </section>
+    <section className="mx-auto mb-28 max-w-7xl px-5 md:px-8"><div className="flex flex-col items-start justify-between gap-6 rounded-3xl bg-petly-mint p-7 md:flex-row md:items-center md:p-10"><div className="flex items-start gap-4"><span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white text-petly-accent"><Icon name="shield" size={21} /></span><div><span className="text-[11px] font-bold uppercase tracking-[.16em] text-petly-accent">Cuidar também é proteger</span><h2 className="mt-2 text-2xl font-semibold">Viu algo que não parece certo?</h2><p className="mt-2 max-w-xl text-sm leading-6 text-[#668174]">Envie uma denúncia e ajude a manter o Petly seguro para toda a comunidade.</p></div></div><Link href="/denuncias" className="inline-flex shrink-0 items-center gap-2 rounded-full bg-petly-ink px-5 py-3 text-sm font-semibold text-white">Fazer uma denúncia <Icon name="arrow" size={17} /></Link></div></section>
     <section className="mx-auto max-w-7xl px-5 pb-28 md:px-8">
       <div className="mb-8 flex flex-col justify-between gap-5 md:flex-row md:items-end">
-        <div><span className="text-[11px] font-bold uppercase tracking-[.18em] text-[#286851]">Na comunidade</span><h2 className="mt-3 text-4xl font-normal tracking-[-.05em] md:text-5xl">Eventos que fazem <em className="font-serif text-petly-sage">a diferença.</em></h2></div>
-        <Link className="flex w-fit items-center gap-2 rounded-full border border-[#e3e9e3] px-4 py-3 text-sm font-semibold text-[#286851]" href="/eventos">Ver todos os eventos <Icon name="arrow" size={17} /></Link>
+        <div><span className="text-[11px] font-bold uppercase tracking-[.18em] text-petly-accent">Na comunidade</span><h2 className="mt-3 text-4xl font-normal tracking-[-.05em] md:text-5xl">Eventos que fazem <em className="font-serif text-petly-sage">a diferença.</em></h2></div>
+        <Link className="flex w-fit items-center gap-2 rounded-full border border-[#e3e9e3] px-4 py-3 text-sm font-semibold text-petly-accent" href="/eventos">Ver todos os eventos <Icon name="arrow" size={17} /></Link>
       </div>
       {eventsError && <p className="rounded-xl bg-red-50 p-4 text-sm text-red-700">{eventsError}</p>}
       {eventsLoading && <p className="rounded-xl border border-petly-line bg-white p-8 text-center text-sm text-petly-muted">Carregando eventos...</p>}
@@ -146,13 +147,13 @@ export default function Home() {
     </section>
     <section id="como-funciona" className="grid gap-12 bg-[#dfeee4] px-5 py-20 md:grid-cols-2 md:px-[max(2rem,calc((100%_-_1176px)/2))]">
       <div>
-      <span className="text-[11px] font-bold uppercase tracking-[.18em] text-[#286851]">
+      <span className="text-[11px] font-bold uppercase tracking-[.18em] text-petly-accent">
       Como funciona</span>
     <h2 className="mt-3 text-4xl font-semibold tracking-[-.05em] md:text-5xl">
       Adotar muda duas vidas.</h2>
     <p className="my-6 max-w-md leading-7 text-[#5d786c]">
       O Petly torna cada etapa mais simples, transparente e responsável — para você e para o animal.</p>
-    <a className="flex items-center gap-2 text-sm font-semibold text-[#286851]" href="/como-funciona">
+    <a className="flex items-center gap-2 text-sm font-semibold text-petly-accent" href="/como-funciona">
       Entenda o processo <Icon name="arrow" size={17}/>
     </a>
     </div>
