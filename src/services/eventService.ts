@@ -7,4 +7,6 @@ export const eventService = {
   list: (signal?: AbortSignal) => apiRequest<ApiEvent[]>("/events", { signal }),
   getById: (id: string, signal?: AbortSignal) => apiRequest<ApiEvent>(`/events/${id}`, { signal }),
   create: (payload: CreateEventPayload, token: string) => apiRequest<ApiEvent>("/events", { method: "POST", body: payload, token }),
+  pending: (token: string, signal?: AbortSignal) => apiRequest<ApiEvent[]>("/events/moderation/pending", { token, signal }),
+  moderate: (id: number, status: "APPROVED" | "REJECTED", token: string) => apiRequest<ApiEvent>(`/events/${id}/moderation`, { method: "PATCH", body: { status }, token }),
 };
